@@ -40,7 +40,7 @@ const PostRegist = () => {
     try {
       await createPost({
         title: title,
-        content,
+        content: content,
         date,
       }).then((res) => {
         //console.log(res);
@@ -53,10 +53,18 @@ const PostRegist = () => {
   
   async function createPost (data) {
     //axios 적용하기
-      const result = await axios.post('http://localhost:8080/', data, {
+      /*const result = await axios.post('http://localhost:8080/', data, {
         withCredentials: true // 쿠키 cors 통신 설정
-      });
-      console.log('성공 시, 백엔드가 보내주는 데이터', result.data);
+      });*/
+      fetch("http://localhost:8080/posts",{
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      },)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
     return Promise.resolve(data);
   }
 
