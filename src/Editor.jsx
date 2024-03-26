@@ -1,12 +1,6 @@
-import { useState } from "react";
-
-//숫자인지 확인
-const isNumber = (value) => {
-  return !isNaN(value)
-};
+//import { useState } from "react";
 
 const Editor = () => {
-  const birthYear = useInput(2024, isNumber);
 
   return (
     <>
