@@ -1,17 +1,50 @@
 import { useState } from "react";
-
-//숫자인지 확인
-const isNumber = (value) => {
-  return !isNaN(value)
-};
+import ReactQuill from "react-quill";
+import createPost from "./api";
 
 const Editor = () => {
-  const birthYear = useInput(2024, isNumber);
+  const modules = {
+    toolbar: {
+      container: [
+        ["image"],
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ["bold", "underline"],
+      ],
+    },
+  };
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const handleTitleChange = (e) => {
+    setTitle(e.currentTarget.value);
+  };
+  const handleSubmit = async () => {
+    const date = new Date();
+
+    try {
+      await createPost({
+        title: title,
+        content,
+        date,
+      }).then((res) => console.log(res));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
-      <h1>아이콘 목록</h1>
-      <textarea id="ewEditor"></textarea>
+      <div>
+        <label htmlFor="title">제목</label>
+        <input id="title" type="text" onChange={handleTitleChange} />
+        <ReactQuill
+          style={{ width: "800px", height: "600px" }}
+          modules={modules}
+          onChange={setContent}
+        />
+      </div>
+      <button style={{ marginTop: "50px" }} onClick={handleSubmit}>
+        제출
+      </button>
     </>
   );
 };

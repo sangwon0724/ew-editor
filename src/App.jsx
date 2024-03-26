@@ -2,7 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Sample from './Sample'
+import Editor from './Editor'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,7 +29,8 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      {/* <Sample/> */}
+      {/* https://velog.io/@stakbucks/React-Quill-WYSIWYG-%EC%97%90%EB%94%94%ED%84%B0-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0 */}
+      <Editor/>
     </>
   )
 }
