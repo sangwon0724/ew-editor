@@ -54,7 +54,12 @@ const _nav = [
       {
         component: CNavItem,
         name: '공지사항',
-        to: '/post/list',
+        to: '/notice/list',
+      },
+      {
+        component: CNavItem,
+        name: '파일 관리',
+        to: '/file/list',
       },
     ],
   },

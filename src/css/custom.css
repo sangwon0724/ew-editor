@@ -1,0 +1,14 @@
+.ql-toolbar .ql-stroke,
+.ql-toolbar .ql-fill{
+	stroke: white !important;
+}
+.ql-toolbar .ql-picker-label {
+	color: white !important;
+}
+.ql-toolbar .ql-picker {
+    border: 1px solid white !important;
+}
+
+[data-placeholder]::placeholder{
+    color: #A6A8AC !important;
+}

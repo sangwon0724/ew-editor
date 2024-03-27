@@ -4,7 +4,8 @@ import { CContainer, CSpinner } from '@coreui/react'
 
 // routes config
 import routes from '../routes'
-import PostRegist from '../views/post/PostRegist'
+import NoticeRegist from '../views/post/notice/NoticeRegist'
+import FileList from '../views/post/file/FileList'
 
 const AppContent = () => {
   return (
@@ -24,7 +25,8 @@ const AppContent = () => {
               )
             )
           })}
-          <Route exact path='post/detail/:id' element={<PostRegist/>} />
+          <Route exact path='notice/detail/:id' element={<NoticeRegist/>} />
+          <Route exact path='file/list/:id' element={<FileList/>} />
           <Route path="/" element={<Navigate to={isLogined() ? "dashboard" :"login"} replace />} />
         </Routes>
       </Suspense>

@@ -5,8 +5,9 @@ const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))
 
 // Post
-const PostList = React.lazy(() => import('./views/post/PostList'))
-const PostRegist = React.lazy(() => import('./views/post/PostRegist'))
+const NoticeList = React.lazy(() => import('./views/post/notice/NoticeList'))
+const NoticeRegist = React.lazy(() => import('./views/post/notice/NoticeRegist'))
+const FileList = React.lazy(() => import('./views/post/file/FileList'))
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -99,8 +100,9 @@ const routes = [
   { path: '/notifications/modals', name: 'Modals', element: Modals },
   { path: '/notifications/toasts', name: 'Toasts', element: Toasts },
   { path: '/widgets', name: 'Widgets', element: Widgets },
-  { path: '/post/list', name: 'PostList', element: PostList },
-  { path: '/post/regist', name: 'PostRegist', element: PostRegist },
+  { path: '/notice/list', name: 'NoticeList', element: NoticeList },
+  { path: '/notice/regist', name: 'NoticeRegist', element: NoticeRegist },
+  { path: '/file/list', name: 'FileList', element: FileList },
 ]
 
 export default routes

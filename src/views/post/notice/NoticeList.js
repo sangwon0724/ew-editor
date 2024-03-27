@@ -102,10 +102,10 @@ async function getPosts(){
  * @param {*} no 
  */
 function goDetail(no) {
-  location.href= "/#/post/detail/" + no;
+  location.href= "/#/notice/detail/" + no;
 }
 
-const PostList = () => {
+const NoticeList = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -114,8 +114,7 @@ const PostList = () => {
       .catch(error => console.error(error));
   }, []);
 
-  console.log(posts)
-  const _postList = Array.from(posts).map((item, index)=>{
+  const _NoticeList = Array.from(posts).map((item, index)=>{
     return <>
       <CTableRow key={item.id} onClick={() => {goDetail(item.id)}}>
         <CTableHeaderCell scope="row">{item.title}</CTableHeaderCell>
@@ -132,18 +131,18 @@ const PostList = () => {
         <CTable hover className="mb-4">
           <CTableHead>
             <CTableRow>
-              <CTableHeaderCell scope="col" className="w-45">제목</CTableHeaderCell>
-              <CTableHeaderCell scope="col" className="w-20">작성일</CTableHeaderCell>
-              <CTableHeaderCell scope="col" className="w-20">조회 수</CTableHeaderCell>
-              <CTableHeaderCell scope="col" className="w-15">노출 여부</CTableHeaderCell>
+              <CTableHeaderCell scope="col" style={{"width" : "45%"}}>제목</CTableHeaderCell>
+              <CTableHeaderCell scope="col" style={{"width" : "20%"}}>작성일</CTableHeaderCell>
+              <CTableHeaderCell scope="col" style={{"width" : "20%"}}>조회 수</CTableHeaderCell>
+              <CTableHeaderCell scope="col" style={{"width" : "15%"}}>노출 여부</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
           <CTableBody>
-            {_postList}
+            {_NoticeList}
           </CTableBody>
         </CTable>
         <CCol xs={12} className="position-relative" style={{"marginBottom" : "15px", "display": "flex", "justifyContent": "flex-end"}}>
-          <CButton color="primary" type="button" style={{"marginRight" : "10px"}} onClick={() => location.href = "/#/post/regist"}>
+          <CButton color="primary" type="button" style={{"marginRight" : "10px"}} onClick={() => location.href = "/#/notice/regist"}>
             등록
           </CButton>
         </CCol>
@@ -163,4 +162,4 @@ const PostList = () => {
   )
 }
 
-export default PostList
+export default NoticeList
