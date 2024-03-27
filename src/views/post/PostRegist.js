@@ -21,11 +21,18 @@ function goList() {
 
 const PostRegist = () => {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [content, setContents] = useState("");
   const [visible, setVisible] = useState(false);
   const quillRef = useRef();
   const handleTitleChange = (e) => {
+    //console.log(e.currentTarget.value);
     setTitle(e.currentTarget.value);
+  };
+  const handleContentChange = async (newContent) => {
+    await setContents(newContent);
+  
+    const editor = quillRef.current.getEditor();
+    editor.setContent(newContent);
   };
   const handleSubmit = async () => {
     const date = new Date();
@@ -138,7 +145,7 @@ const PostRegist = () => {
         <CForm>
           <div className="mb-3">
             <CFormLabel htmlFor="exampleFormControlInput1">제목</CFormLabel>
-            <CFormInput type="email" id="exampleFormControlInput1" placeholder="제목을 입력해주세요." onChange={{handleTitleChange}}/>
+            <CFormInput type="email" id="exampleFormControlInput1" placeholder="제목을 입력해주세요." onChange={handleTitleChange}/>
           </div>
           <div className="mb-3">
             <CFormLabel htmlFor="exampleFormControlTextarea1">내용</CFormLabel>
@@ -148,7 +155,7 @@ const PostRegist = () => {
               placeholder="내용을 입력해주세요."
               style={{ width: "800px", height: "600px" }}
               value={content}
-              onChange={{setContent}}
+              //onChange={handleContentChange}
               modules={modules}
             />
           </div>
