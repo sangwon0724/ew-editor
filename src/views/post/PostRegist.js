@@ -76,6 +76,7 @@ const PostRegist = () => {
         var imageUrl = `http://localhost:8080${result.data.url}`;
         console.log('imageUrl', imageUrl);
         const IMG_URL = imageUrl;
+
         const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
         const range = editor.getSelection();
         editor.insertEmbed(range.index, 'image', IMG_URL);
@@ -109,7 +110,7 @@ const PostRegist = () => {
         ["bold", "underline"],
       ],
       handlers: {
-        image: imageHandler,
+        image: imageHandler, //핸들러가 있으면 setContent했을 때 에디터가 사라짐
       },
     },
   };
@@ -137,16 +138,18 @@ const PostRegist = () => {
         <CForm>
           <div className="mb-3">
             <CFormLabel htmlFor="exampleFormControlInput1">제목</CFormLabel>
-            <CFormInput type="email" id="exampleFormControlInput1" placeholder="제목을 입력해주세요." onChange={handleTitleChange}/>
+            <CFormInput type="email" id="exampleFormControlInput1" placeholder="제목을 입력해주세요." onChange={{handleTitleChange}}/>
           </div>
           <div className="mb-3">
             <CFormLabel htmlFor="exampleFormControlTextarea1">내용</CFormLabel>
             <ReactQuill
               ref={quillRef}
+              theme="snow"
+              placeholder="내용을 입력해주세요."
               style={{ width: "800px", height: "600px" }}
-              modules={modules}
               value={content}
-              onChange={setContent}
+              onChange={{setContent}}
+              modules={modules}
             />
           </div>
           <CCol xs={12} className="position-relative" style={{"marginTop" : "70px", "marginBottom" : "30px"}}>
