@@ -48,18 +48,13 @@ const _nav = [
   },
   {
     component: CNavGroup,
-    name: '공지사항 관리',
+    name: '게시글 관리',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
-        name: '목록',
+        name: '공지사항',
         to: '/post/list',
-      },
-      {
-        component: CNavItem,
-        name: '등록',
-        to: '/post/regist',
       },
     ],
   },

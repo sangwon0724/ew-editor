@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   CCol,
   CRow,
@@ -13,24 +13,17 @@ import {
   CModalFooter,
 } from '@coreui/react'
 import ReactQuill from 'react-quill';
+import axios from 'axios';
 
 function goList() {
   location.href = "/#/post/list";
 }
 
 const PostRegist = () => {
-  const modules = {
-    toolbar: {
-      container: [
-        ["image"],
-        [{ header: [1, 2, 3, 4, 5, false] }],
-        ["bold", "underline"],
-      ],
-    },
-  };
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [visible, setVisible] = useState(false);
+  const quillRef = useRef();
   const handleTitleChange = (e) => {
     setTitle(e.currentTarget.value);
   };
@@ -41,6 +34,8 @@ const PostRegist = () => {
         title: title,
         content: content,
         date,
+        views: 0,
+        viewYn: 'Y'
       }).then((res) => {
         //console.log(res);
         setVisible(true);
@@ -48,6 +43,46 @@ const PostRegist = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+  const imageHandler = () => {
+    console.log('에디터에서 이미지 버튼을 클릭하면 이 핸들러가 시작됩니다!');
+  
+    // 1. 이미지를 저장할 input type=file DOM을 만든다.
+    const input = document.createElement('input');
+    // 속성 써주기
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click(); // 에디터 이미지버튼을 클릭하면 이 input이 클릭된다.
+    // input이 클릭되면 파일 선택창이 나타난다.
+  
+    // input에 변화가 생긴다면 = 이미지를 선택
+    input.addEventListener('change', async () => {
+      console.log('온체인지');
+      const file = input.files[0];
+      // multer에 맞는 형식으로 데이터 만들어준다.
+      const formData = new FormData();
+      formData.append('file', file); // formData는 키-밸류 구조
+      // 백엔드 multer라우터에 이미지를 보낸다.
+      try {
+        const result = await axios.post("http://localhost:8080/files/regist", formData, { headers: {'Content-Type': 'multipart/form-data;'}});
+        
+        /*fetch("http://localhost:8080/files/regist",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },)*/
+        var imageUrl = `http://localhost:8080${result.data.url}`;
+        console.log('imageUrl', imageUrl);
+        const IMG_URL = imageUrl;
+        const editor = quillRef.current.getEditor(); // 에디터 객체 가져오기
+        const range = editor.getSelection();
+        editor.insertEmbed(range.index, 'image', IMG_URL);
+      } catch (error) {
+        console.log('실패했습니다.');
+      }
+    });
   };
   
   async function createPost (data) {
@@ -66,6 +101,18 @@ const PostRegist = () => {
       .then((data) => console.log(data));
     return Promise.resolve(data);
   }
+  const modules = {
+    toolbar: {
+      container: [
+        ["image"],
+        [{ header: [1, 2, 3, 4, 5, false] }],
+        ["bold", "underline"],
+      ],
+      handlers: {
+        image: imageHandler,
+      },
+    },
+  };
 
   return (
     <CRow>
@@ -95,8 +142,10 @@ const PostRegist = () => {
           <div className="mb-3">
             <CFormLabel htmlFor="exampleFormControlTextarea1">내용</CFormLabel>
             <ReactQuill
+              ref={quillRef}
               style={{ width: "800px", height: "600px" }}
               modules={modules}
+              value={content}
               onChange={setContent}
             />
           </div>

@@ -9,6 +9,7 @@ import {
   CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CButton,
 } from '@coreui/react'
 import { useEffect, useState } from 'react';
 
@@ -141,6 +142,11 @@ const PostList = () => {
             {_postList}
           </CTableBody>
         </CTable>
+        <CCol xs={12} className="position-relative" style={{"marginBottom" : "15px", "display": "flex", "justifyContent": "flex-end"}}>
+          <CButton color="primary" type="button" style={{"marginRight" : "10px"}} onClick={() => location.href = "/#/post/regist"}>
+            등록
+          </CButton>
+        </CCol>
         <CPagination aria-label="Page navigation example">
           <CPaginationItem aria-label="Previous" disabled>
             <span aria-hidden="true">&laquo;</span>
